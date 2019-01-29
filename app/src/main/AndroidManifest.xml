@@ -22,11 +22,7 @@
         </activity>
         <activity android:name=".MainActivity">
         </activity>
-        <activity android:name=".LogRegHolder">
-        </activity>
         <activity android:name=".RegisterActivity">
-        </activity>
-        <activity android:name=".ExploreActivity">
         </activity>
     </application>
 

@@ -24,6 +24,10 @@ class HorizontalCustomAdapter (val ticketsList : ArrayList<Ticket>) : RecyclerVi
 
         holder?.ticketDestination?.text = ticket.destination
         loadImageInBackground(ticket, holder)
+
+        holder?.backgroundImage.setOnClickListener {
+
+        }
     }
 
     class ViewHolder(itemView: View)  : RecyclerView.ViewHolder (itemView){

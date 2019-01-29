@@ -29,18 +29,9 @@ class SearchQueryFragment: Fragment() {
        //RecyclerView stuff
         val mFragmentManager : FragmentManager? = fragmentManager
         val recyclerView = rootView.findViewById(R.id.recycler_view_id) as? RecyclerView
-        val button = rootView.findViewById(R.id.buyTicketButton) as? Button
-
-        //Calendar stuff
-        val calendar = Calendar.getInstance()
 
         //Fragments stuff
         var bundle : Bundle? = this.getArguments()
-
-        button?.setOnClickListener({
-            Toast.makeText(activity, "Your debit card has ben charged. Ticket succesfully bought!", Toast.LENGTH_LONG).show()
-            switchFragment(mFragmentManager, PaymentFragment())
-        })
 
         recyclerView?.layoutManager = LinearLayoutManager(MainActivity(), LinearLayout.VERTICAL, false)
         populateListWithFakeStuff()
@@ -62,19 +53,6 @@ class SearchQueryFragment: Fragment() {
         }
     }
 
-    fun populateListWithMyTickets(){
-
-        var i = 0
-        var hour : String = "10"
-        var minute : String = "14"
-
-        while (i<2){
-            ticketsList.add(Ticket(i.toString(), R.mipmap.bus_desert))
-            i++
-        }
-
-    }
-
     fun switchFragment(mFragmentManager : FragmentManager?, destinationFragment : Fragment){
         mFragmentStack = Stack()
         val transaction = mFragmentManager?.beginTransaction()
@@ -82,9 +60,5 @@ class SearchQueryFragment: Fragment() {
         (mFragmentStack as Stack<Fragment>).push(destinationFragment)
         transaction?.commitAllowingStateLoss()
     }
-
-    val minutes = arrayListOf<String>("10", "20", "30", "40", "50")
-    val hours = arrayListOf<String>("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11")
-
 
 }

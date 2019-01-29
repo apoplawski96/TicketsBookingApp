@@ -32,21 +32,18 @@ class CustomAdapter (val ticketsList : ArrayList<Ticket>) : RecyclerView.Adapter
         val ticket : Ticket = ticketsList[position]
 
         holder?.ticketDestination?.text = ticket.destination
-        holder?.fc.setOnClickListener({
+        holder?.fc.setOnClickListener {
             holder?.fc.toggle(false)
-        })
+        }
 
 
-        holder?.bt.setOnClickListener({
+        holder?.bt.setOnClickListener {
 
-            //Toast.makeText(it.context, "asdasd", Toast.LENGTH_LONG).show()
             val intent = Intent(it.context, PaymentActivity::class.java).apply {
                 //putExtra("asdasd", "asda")
             }
             it.context.startActivity(intent)
-
-        })
-
+        }
     }
 
     class ViewHolder(itemView: View)  : RecyclerView.ViewHolder (itemView){
