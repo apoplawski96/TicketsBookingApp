@@ -9,50 +9,39 @@ import android.widget.AdapterView
 import android.widget.ListView
 import android.widget.Toast
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(),LocationSelection {
 
-    lateinit var listView : ListView
+
+    override fun onLocationSelected(location: String) {
+        createFragment(SearchFragment())
+    }
+
     val manager = supportFragmentManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val whereToGo = ""
         val bottomNav = findViewById(R.id.bottom_nav) as BottomNavigationView
         bottomNav.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
         if (intent.getStringExtra("mt")!=null){
             if (intent.getStringExtra("mt").equals("yes")) createFragment(MyTicketsFragment())
-        } else{
-            createFragment(HomeFragment())
+        } else {
+            val fragment = HomeFragment()
+            fragment.setLocationSelection(this)
+            createFragment(fragment)
         }
 
-
-
-        /*listView?.onItemClickListener = object : AdapterView.OnItemClickListener {
-
-            override fun onItemClick(parent: AdapterView<*>, view: View,
-                                     position: Int, id: Long) {
-
-                // value of item that is clicked
-                val itemValue = listView.getItemAtPosition(position) as UserProfileItem
-
-                createFragment(HomeFragment())
-
-                // Toast the values
-                Toast.makeText(applicationContext,
-                    "Position :${position}\nItem Value : ${itemValue.name}", Toast.LENGTH_LONG)
-                    .show()
-            }
-        }*/
 
     }
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId){
             R.id.nav_home -> {
-                createFragment(HomeFragment())
+                val fragment = HomeFragment()
+                fragment.setLocationSelection(this)
+                createFragment(fragment)
                 item.setChecked(true)
             }
             R.id.nav_search -> {
@@ -74,4 +63,7 @@ class MainActivity : AppCompatActivity() {
         transaction.commit()
     }
 
+
 }
+
+

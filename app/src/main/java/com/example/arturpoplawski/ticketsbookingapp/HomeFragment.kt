@@ -24,11 +24,16 @@ class HomeFragment: Fragment() {
     var size = Point()
     var width = size.x
     var height = size.y
+    lateinit var location : LocationSelection
+    lateinit var homeFragmentListener : HomeFragment.HomeFragmentListener
+
+    interface HomeFragmentListener{
+        fun onInputSent(input : CharSequence)
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.fragment_home, container, false)
         val recyclerView = rootView.findViewById(R.id.horizontal_recycler_view) as RecyclerView
-        //val homeFragmentBackground = rootView.findViewById(R.id.homeFragmentBackground) as ImageView
 
         display?.getSize(size)
         width = size.x
@@ -37,7 +42,7 @@ class HomeFragment: Fragment() {
         //Picasso.get().load(R.mipmap.busonstop).resize(width, height).centerCrop().into(homeFragmentBackground)
         recyclerView.layoutManager = LinearLayoutManager(MainActivity(), LinearLayout.HORIZONTAL, false)
         populateListWithFakeStuff()
-        adapter = HorizontalCustomAdapter(ticketsList)
+        adapter = HorizontalCustomAdapter(ticketsList,location)
         Log.d(TAG, "Trying to attach adapter to a recyclerView");
         recyclerView.adapter = adapter
         adapter.refresh()
@@ -46,9 +51,13 @@ class HomeFragment: Fragment() {
         return rootView
     }
 
-    fun populateListWithFakeStuff(){
+    fun setLocationSelection(locationSelection: LocationSelection){
+        location = locationSelection
+    }
 
-        var i = 0
+
+
+    fun populateListWithFakeStuff(){
 
         ticketsList.add(Ticket("Barcelona", R.mipmap.barcelona2))
         ticketsList.add(Ticket("Berlin", R.mipmap.berlin))
@@ -56,12 +65,7 @@ class HomeFragment: Fragment() {
         ticketsList.add(Ticket("Krakow", R.mipmap.krakow))
         ticketsList.add(Ticket("Newcastle", R.mipmap.newcastle))
 
-
-
-        /*while (i<30){
-            ticketsList.add(Ticket(i.toString(), R.mipmap.bus_desert))
-            i++
-        }*/
     }
+
 
 }
